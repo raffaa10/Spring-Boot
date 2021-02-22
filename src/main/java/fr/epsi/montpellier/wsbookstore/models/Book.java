@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 @Entity
@@ -42,6 +43,17 @@ public class Book {
     this.dimensions = dimensions;
     this.overview = overview;
     this.synopsis = synopsis;
+  }
+
+  public void updateFrom(@NotNull Book book) {
+    this.publicationyear = book.publicationyear;
+    this.price = book.price;
+    this.format = book.format;
+    this.edition = book.edition;
+    this.pages = book.pages;
+    this.dimensions = book.dimensions;
+    this.overview = book.overview;
+    this.synopsis = book.synopsis;
   }
 
   @Override

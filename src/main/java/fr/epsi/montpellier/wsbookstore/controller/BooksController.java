@@ -64,5 +64,38 @@ public class BooksController {
         exception.printStackTrace(System.err);
     }
 
+    @PutMapping("/books/{id}")
+    public Book updateBook(@PathVariable String id, @Validated @RequestBody Book book) {
+        // Vérification des paramètres
+        if (!id.equals(book.getIsbn())) {
+            throw new ResponseStatusException(
+                    HttpStatus.BAD_REQUEST,
+                    "L'id de l'URL ne correspond pas à l'id du body"
+            );
+        }
+        // Recherche du livre
+        Book booksUpdated = findById(id);
+        // Mise à jour des données
+        booksUpdated.updateFrom(book);
+        try {
+            // Mise à jour dans la BD
+            booksUpdated = booksRepository.save(booksUpdated);
+
+            // HTTP Status Code 200 (Ok) par défaut
+            LogMessage(String.format("Livre mis à jour: %s", booksUpdated.toString()));
+            return booksUpdated;
+        } catch (Exception exception) {
+            LogError(exception);
+            throw new ResponseStatusException(
+                    HttpStatus.BAD_REQUEST,
+                    String.format("Books: %s", book.toString())
+            );
+        }
+    }
+
+    private void LogMessage(String message) {
+        System.err.printf("Message=%s, Class=%s\n", message, this.getClass().getCanonicalName());
+    }
+
 
 }
