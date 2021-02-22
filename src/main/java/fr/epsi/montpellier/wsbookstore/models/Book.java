@@ -3,6 +3,8 @@ package fr.epsi.montpellier.wsbookstore.models;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
 import java.util.Date;
 
 @Entity
@@ -10,19 +12,23 @@ public class Book {
 
     @Id
     private String isbn;
+    @Min(1)
     private long publisherId;
+    @NotBlank
     private String title;
     private Date publicationyear;
+    @Min(1)
     private double price;
     private String format;
     private String edition;
+    @Min(10)
     private long pages;
     private String dimensions;
     private String overview;
     private String synopsis;
 
-  public Book() {
-  }
+    public Book() {
+    }
 
   public Book(String isbn, long publisherId, String title, Date publicationyear, double price, String format, String edition, long pages, String dimensions, String overview, String synopsis) {
     this.isbn = isbn;
