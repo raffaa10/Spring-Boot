@@ -10,16 +10,32 @@ import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.util.Optional;
 
 
 @RestController
 @RequestMapping("/api")
 public class BooksController {
 
-    private BooksRepository booksRepository;
+    private final BooksRepository booksRepository;
 
     public BooksController(BooksRepository booksRepository) {
         this.booksRepository = booksRepository;
+    }
+
+    @GetMapping("/books/title/{title}")
+    public Optional<Book> getTitles(@PathVariable(value = "title") String title) {
+        return booksRepository.findByTitle(title);
+    }
+
+    @GetMapping("/books/edition/{edition}")
+    public Iterable<Book> getEditions(@PathVariable(value = "edition") String edition) {
+        return booksRepository.findByEdition(edition);
+    }
+
+    @GetMapping("/books/price/{price}")
+    public Iterable<Book> getPriceGreaterThan(Double price) {
+        return booksRepository.findByPriceGreaterThan(price);
     }
 
 
