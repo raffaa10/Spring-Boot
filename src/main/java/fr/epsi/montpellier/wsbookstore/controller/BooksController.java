@@ -80,7 +80,6 @@ public class BooksController {
         try {
             // Mise à jour dans la BD
             booksUpdated = booksRepository.save(booksUpdated);
-
             // HTTP Status Code 200 (Ok) par défaut
             LogMessage(String.format("Livre mis à jour: %s", booksUpdated.toString()));
             return booksUpdated;
@@ -92,9 +91,27 @@ public class BooksController {
             );
         }
     }
-
     private void LogMessage(String message) {
         System.err.printf("Message=%s, Class=%s\n", message, this.getClass().getCanonicalName());
+    }
+
+    @DeleteMapping("/books/{id}")
+    public ResponseEntity<Void> deleteBook(@PathVariable String id) {
+        boolean success = false;
+
+        // Recherche du livre
+        Book book = findById(id);
+        try {
+            // Suppression
+            booksRepository.delete(book);
+            LogMessage(String.format("Livre supprimé: %s", book.toString()));
+            success = true;
+        } catch (Exception exception) {
+            LogError(exception);
+        }
+        return (success ?
+                ResponseEntity.noContent().build() :
+                ResponseEntity.notFound().build());
     }
 
 
