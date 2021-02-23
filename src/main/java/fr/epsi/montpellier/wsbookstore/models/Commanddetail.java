@@ -1,22 +1,29 @@
 package fr.epsi.montpellier.wsbookstore.models;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import javax.persistence.*;
 
 @Entity
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id")
 public class Commanddetail {
 
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   private long id;
-  private long commandId;
+  //private long commandId;
   private String bookIsbn;
   private double unitprice;
   private long quantity;
   private double discount;
 
 //Provoque une ambiguouité et une erreur -> boocle infini
-/*
+
   @ManyToOne
+  @JoinColumn(name="command_id", nullable = false)
   private Command command;
 
   public Command getCommand() {
@@ -26,7 +33,7 @@ public class Commanddetail {
   public void setCommand(Command command) {
     this.command = command;
   }
-*/
+
   public long getId() {
     return id;
   }
@@ -35,7 +42,7 @@ public class Commanddetail {
     this.id = id;
   }
 
-
+/*
   public long getCommandId() {
     return commandId;
   }
@@ -43,7 +50,7 @@ public class Commanddetail {
   public void setCommandId(long commandId) {
     this.commandId = commandId;
   }
-
+*/
 
   public String getBookIsbn() {
     return bookIsbn;
