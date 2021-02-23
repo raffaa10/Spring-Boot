@@ -83,6 +83,28 @@ public class CommandsController {
         exception.printStackTrace(System.err);
     }
 
+    @DeleteMapping("/commands/{id}")
+    public ResponseEntity<Void> deleteCommand(@PathVariable("id") Long id) {
+        boolean success = false;
+        // Recherche de la commande
+        Command command = findById(id);
+        try {
+            // Suppression
+            commandsRepository.delete(command);
+            LogMessage(String.format("Commande supprimée: %s", command.toString()));
+            success = true;
+        } catch (Exception exception) {
+            LogError(exception);
+        }
+        return (success ?
+                ResponseEntity.noContent().build() :
+                ResponseEntity.notFound().build());
+    }
+    private void LogMessage(String message) {
+        System.err.printf("Message=%s, Class=%s\n", message, this.getClass().getCanonicalName());
+    }
+
+
 
 
 
