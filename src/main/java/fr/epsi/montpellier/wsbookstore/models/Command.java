@@ -1,6 +1,7 @@
 package fr.epsi.montpellier.wsbookstore.models;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
 import java.util.Date;
 import java.util.List;
 
@@ -9,6 +10,7 @@ public class Command {
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   private long id;
+  @Min(1)
   private long customerId;
   private Date orderdate;
 
@@ -19,15 +21,17 @@ public class Command {
   public Command() {
   }
 
-  public Command(Date orderdate) {
-    this.orderdate = orderdate;
-  }
-
   public Command(long id, long customerId, Date orderdate) {
     this.id = id;
     this.customerId = customerId;
     this.orderdate = orderdate;
   }
+
+  @Override
+  public String toString() {
+    return String.format("Command=[id:%d, customerId:%d, orderdate:%s]", id, customerId, orderdate.toString());
+  }
+
 
   public List<Commanddetail> getItems() {
     return items;
