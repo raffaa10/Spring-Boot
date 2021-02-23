@@ -15,6 +15,7 @@ public class Commanddetail {
   private long quantity;
   private double discount;
 
+ /* Provoque une ambiguouité et une erreur -> boocle infini
   @ManyToOne
   private Command command;
 
@@ -25,7 +26,7 @@ public class Commanddetail {
   public void setCommand(Command command) {
     this.command = command;
   }
-
+*/
   public long getId() {
     return id;
   }
