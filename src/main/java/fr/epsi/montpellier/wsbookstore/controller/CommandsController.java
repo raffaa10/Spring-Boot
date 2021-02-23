@@ -84,7 +84,7 @@ public class CommandsController {
     }
 
     @DeleteMapping("/commands/{id}")
-    public ResponseEntity<Void> deleteCommand(@PathVariable("id") Long id) {
+    public Command deleteCommand(@PathVariable("id") Long id) {
         boolean success = false;
         // Recherche de la commande
         Command command = findById(id);
@@ -96,10 +96,15 @@ public class CommandsController {
         } catch (Exception exception) {
             LogError(exception);
         }
-        return (success ?
-                ResponseEntity.noContent().build() :
-                ResponseEntity.notFound().build());
+        if (success) {
+            // HTTP Status Code 200 (Ok) par défaut
+            return command;
+        }
+        throw new ResponseStatusException(
+                HttpStatus.NOT_FOUND,
+                String.format("Commande '%s' non trouvée", id));
     }
+
     private void LogMessage(String message) {
         System.err.printf("Message=%s, Class=%s\n", message, this.getClass().getCanonicalName());
     }

@@ -21,6 +21,7 @@ public class Command {
 
 
   public Command() {
+    this.items = null;
   }
 
   public Command(long id, long customerId, Date orderdate) {

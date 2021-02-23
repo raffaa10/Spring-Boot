@@ -1,6 +1,5 @@
 package fr.epsi.montpellier.wsbookstore.models;
 
-
 import javax.persistence.*;
 
 @Entity
@@ -15,7 +14,8 @@ public class Commanddetail {
   private long quantity;
   private double discount;
 
- /* Provoque une ambiguouité et une erreur -> boocle infini
+//Provoque une ambiguouité et une erreur -> boocle infini
+/*
   @ManyToOne
   private Command command;
 
