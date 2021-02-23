@@ -114,7 +114,6 @@ public class BooksController {
     @DeleteMapping("/books/{id}")
     public ResponseEntity<Void> deleteBook(@PathVariable String id) {
         boolean success = false;
-
         // Recherche du livre
         Book book = findById(id);
         try {
