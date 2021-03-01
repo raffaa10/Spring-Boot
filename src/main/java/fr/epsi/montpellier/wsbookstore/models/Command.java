@@ -1,6 +1,7 @@
 package fr.epsi.montpellier.wsbookstore.models;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
 import javax.validation.constraints.Min;
@@ -8,6 +9,10 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
+@Table(name="command") // On peut aussi omettre cette annotation
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id")
 public class Command {
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
@@ -16,7 +21,7 @@ public class Command {
   private long customerId;
   private Date orderdate;
 
-  @OneToMany(mappedBy = "commandId")
+  @OneToMany(mappedBy = "command")
   private List<Commanddetail> items;
 
 

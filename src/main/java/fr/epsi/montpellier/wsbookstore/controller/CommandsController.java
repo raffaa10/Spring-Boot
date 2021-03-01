@@ -2,6 +2,7 @@ package fr.epsi.montpellier.wsbookstore.controller;
 
 import fr.epsi.montpellier.wsbookstore.models.Command;
 import fr.epsi.montpellier.wsbookstore.repository.CommandsRepository;
+import fr.epsi.montpellier.wsshare.controller.BaseController;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -16,7 +17,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api")
-public class CommandsController {
+public class CommandsController extends BaseController {
 
     private final CommandsRepository commandsRepository;
 
@@ -78,11 +79,12 @@ public class CommandsController {
             );
         }
     }
+    /* On omet cette partie car elle vient de la classe BaseController
     private void LogError(Exception exception) {
         System.err.printf("Error, Class=%s\n", this.getClass().getCanonicalName());
         exception.printStackTrace(System.err);
     }
-
+    */
     @DeleteMapping("/commands/{id}")
     public Command deleteCommand(@PathVariable("id") Long id) {
         boolean success = false;
@@ -104,11 +106,12 @@ public class CommandsController {
                 HttpStatus.NOT_FOUND,
                 String.format("Commande '%s' non trouvée", id));
     }
+    /* On omet cette partie parce que notre classe hérite de la classe BaseController
 
     private void LogMessage(String message) {
         System.err.printf("Message=%s, Class=%s\n", message, this.getClass().getCanonicalName());
     }
-
+    */
 
 
 
